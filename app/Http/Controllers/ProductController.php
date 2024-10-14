@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Intervention\Image\Laravel\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -52,7 +53,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = Product::create($this->getValidatedData($request));
+        // return $request;
+
+        $product = Product::create(
+            $this->getValidatedData($request)
+            + $this->getPhotoData($request)
+        );
 
         return to_route('products.show', $product->id);
     }
@@ -98,7 +104,12 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $product->update($this->getValidatedData($request, $product->id));
+        // return $request;
+
+        $product->update(
+            $this->getValidatedData($request, $product->id) 
+            + $this->getPhotoData($request, $product->photos)
+        );
 
         return to_route('products.show', $product->id);
     }
@@ -124,8 +135,25 @@ class ProductController extends Controller
             "model" => "required|string",
             "country" => "required|string",
             "description" => "",
-            "photos" => "array",
+            // "photos" => "array",
             "specifications" => "array",
         ]);
+    }
+
+    protected function getPhotoData($request, $photos = [])
+    {
+        if(!$request->hasFile('photos')) {
+            return [];  
+        }
+
+        foreach($request->file('photos') as $index => $file) {
+            $image = Image::read($file);
+
+            $photos[$index] = $image->toGif()->toDataUri();
+        }
+
+        return [
+            "photos" => $photos
+        ];
     }
 }

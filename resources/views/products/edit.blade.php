@@ -19,6 +19,7 @@
                 method="POST"
                 action="{{ route('products.update', $product->id) }}"
                 class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4 md:p-8 grid gap-4"
+                enctype="multipart/form-data"
             >
                 @csrf
                 @method('PUT')
