@@ -80,6 +80,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        // return $product;
+
         // return
         $brands = Product::query()
             ->distinct()
@@ -109,6 +111,7 @@ class ProductController extends Controller
         $product->update(
             $this->getValidatedData($request, $product->id) 
             + $this->getPhotoData($request, $product->photos)
+            + $this->getSpecificationData($request, $product->specifications)
         );
 
         return to_route('products.show', $product->id);
@@ -135,8 +138,6 @@ class ProductController extends Controller
             "model" => "required|string",
             "country" => "required|string",
             "description" => "",
-            // "photos" => "array",
-            "specifications" => "array",
         ]);
     }
 
@@ -149,11 +150,24 @@ class ProductController extends Controller
         foreach($request->file('photos') as $index => $file) {
             $image = Image::read($file);
 
-            $photos[$index] = $image->toGif()->toDataUri();
+            $photos[$index] = $image->scale(720)->toWebp()->toDataUri();
         }
 
         return [
             "photos" => $photos
+        ];
+    }
+
+    protected function getSpecificationData($request, $specifications = [])
+    {
+        if(!$request->has('specifications')) {
+            return [];  
+        }
+
+        $specifications = json_decode($request->specifications, true);
+
+        return [
+            "specifications" => $specifications
         ];
     }
 }
