@@ -101,7 +101,6 @@
     @enderror
 
     <!-- Specifications -->
-    <!-- Specifications -->
     <div class="col-span-full"
         x-data='{
             data: @json($product->specifications) ?? {
@@ -176,7 +175,8 @@
             }
         }'
     >
-
+        <label for="country" class="block text-xl text-center font-medium text-gray-700 py-2">Specifications</label>
+        
         <!-- Add hidden input field to submit specifications -->
         <input type="hidden" name="specifications" x-model="JSON.stringify(data)">
 
