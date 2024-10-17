@@ -2,13 +2,13 @@
     <x-slot name="header">
         <div class="flex justify-between gap-2 items-center">
             <a
-                href="{{ route('products.index') }}"
+                href="{{ route('dashboard.products.index') }}"
                 class="cursor-pointer text-gray-600 hover:text-gray-900"
             >
                &larr; Back to List
             </a>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Product Form') }}
+                {{ __('New Product Form') }}
             </h2>
         </div>
     </x-slot>
@@ -17,19 +17,19 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <form
                 method="POST"
-                action="{{ route('products.store') }}"
+                action="{{ route('dashboard.products.store') }}"
                 class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4 md:p-8 grid gap-4"
                 enctype="multipart/form-data"
             >
                 @csrf
                 
-                @include('products.form')
+                @include('admin.products.form')
                 
                 <hr />
 
                 <div class="flex justify-between gap-2 items-center">
                     <a
-                        href="{{ route('products.index') }}"
+                        href="{{ route('dashboard.products.index') }}"
                         class="cursor-pointer text-gray-600 hover:text-gray-900"
                     >
                         &larr; Back without save

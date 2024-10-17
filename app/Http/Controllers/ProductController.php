@@ -19,7 +19,7 @@ class ProductController extends Controller
             ->latest()
             ->paginate();
 
-        return view("products.index", compact('products'));
+        return view("admin.products.index", compact('products'));
     }
 
     /**
@@ -41,7 +41,7 @@ class ProductController extends Controller
             ->pluck('country')
             ->toArray();
 
-        return view("products.create", compact(
+        return view("admin.products.create", compact(
             'product',
             'brands',
             'countries',
@@ -58,9 +58,10 @@ class ProductController extends Controller
         $product = Product::create(
             $this->getValidatedData($request)
             + $this->getPhotoData($request)
+            + $this->getSpecificationData($request)
         );
 
-        return to_route('products.show', $product->id);
+        return to_route('dashboard.products.show', $product->id);
     }
 
     /**
@@ -68,11 +69,13 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return to_route('products.index', [
-            'product' => $product->id, 
-        ]);
+        // return to_route('dashboard.products.index', [
+        //     'product' => $product->id, 
+        // ]);
 
-        return $product;
+        // return $product;
+
+        return view('admin.products.show', compact('product'));
     }
 
     /**
@@ -94,7 +97,7 @@ class ProductController extends Controller
             ->pluck('country')
             ->toArray();
 
-        return view("products.edit", compact(
+        return view("admin.products.edit", compact(
             'product',
             'brands',
             'countries',
@@ -114,7 +117,7 @@ class ProductController extends Controller
             + $this->getSpecificationData($request, $product->specifications)
         );
 
-        return to_route('products.show', $product->id);
+        return to_route('dashboard.products.show', $product->id);
     }
 
     /**
@@ -123,6 +126,8 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         return $product;
+
+        return to_route('dashboard.products.index');
     }
 
     protected function getValidatedData($request, $id = '')
