@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -69,9 +70,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        // return to_route('dashboard.products.index', [
-        //     'product' => $product->id, 
-        // ]);
+        return to_route('dashboard.products.index', [
+            'product' => $product->id, 
+        ]);
 
         // return $product;
 
