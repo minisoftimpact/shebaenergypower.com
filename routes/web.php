@@ -39,6 +39,8 @@ Route::get('/deutz', [CategoryController::class, 'deutz']);
 Route::get('/ricardo', [CategoryController::class, 'ricardo']);
 Route::get('/portable-gasoline-generator', [CategoryController::class, 'gasoline']);
 
+Route::redirect('/admin', '/dashboard');
+
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function () {
     Route::get('/', DashboardController::class)->name('dashboard');
     
