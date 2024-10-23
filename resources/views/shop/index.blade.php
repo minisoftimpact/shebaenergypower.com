@@ -149,7 +149,7 @@
                         </div>
                     </template>
 
-                    <template x-if="products.length === 0">
+                    <template x-if="!loading && products.length === 0">
                         <div class="col-span-full flex justify-center items-center py-16 px-4">
                             <div class="text-center font-bold text-rose-500 text-xl">Product not found!</div>
                         </div>

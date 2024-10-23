@@ -82,18 +82,22 @@
         <label for="imgInput1" class="border rounded w-full aspect-square cursor-pointer">
             <img id="preview1" src="{{ $product->photos[0] ?? '' }}" alt="Photo 1" class="w-full aspect-square object-contain" />
             <input name="photos[]" id="imgInput1" onchange="previewImage(event, 'preview1')" class="hidden" type="file" accept="image/*" />
+            {{-- <button type="button" onclick="removeImage(0)">Remove</button> --}}
         </label>
         <label for="imgInput2" class="border rounded w-full aspect-square cursor-pointer">
             <img id="preview2" src="{{ $product->photos[1] ?? '' }}" alt="Photo 2" class="w-full aspect-square object-contain" />
             <input name="photos[]" id="imgInput2" onchange="previewImage(event, 'preview2')" class="hidden" type="file" accept="image/*" />
+            {{-- <button type="button" onclick="removeImage(1)">Remove</button> --}}
         </label>
         <label for="imgInput3" class="border rounded w-full aspect-square cursor-pointer">
             <img id="preview3" src="{{ $product->photos[2] ?? '' }}" alt="Photo 3" class="w-full aspect-square object-contain" />
             <input name="photos[]" id="imgInput3" onchange="previewImage(event, 'preview3')" class="hidden" type="file" accept="image/*" />
+            {{-- <button type="button" onclick="removeImage(2)">Remove</button> --}}
         </label>
         <label for="imgInput4" class="border rounded w-full aspect-square cursor-pointer">
             <img id="preview4" src="{{ $product->photos[3] ?? '' }}" alt="Photo 4" class="w-full aspect-square object-contain" />
             <input name="photos[]" id="imgInput4" onchange="previewImage(event, 'preview4')" class="hidden" type="file" accept="image/*" />
+            {{-- <button type="button" onclick="removeImage(3)">Remove</button> --}}
         </label>
     </div>
     @error('photos')
@@ -104,7 +108,7 @@
     <div class="col-span-full"
         x-data='{
             data: @json($product->specifications) ?? {
-                generator: {
+                Generator: {
                     "Brand Name": "",
                     "Model No": "",
                     "Country of Origin": "",
@@ -120,7 +124,7 @@
                     "Open Set Dimensions": "",
                     "Weight": ""
                 },
-                engine: {
+                Engine: {
                     "Manufacturer": "",
                     "Country of Origin": "",
                     "Cooling System": "",
@@ -129,7 +133,7 @@
                     "Governor type": "",
                     "Model": ""
                 },
-                alternator: {
+                Alternator: {
                     "Manufacturer": "",
                     "Country of Origin": "",
                     "Model": "",
@@ -139,10 +143,12 @@
 
             newSectionName: "",
 
-            newInput: {
-                generator: {key:"", value:""},
-                engine: {key:"", value:""},
-                alternator: {key:"", value:""},
+            newInput: {},
+
+            init() {
+                Object.keys(this.data).forEach(section => {
+                    this.newInput[section] = { key: "", value: "" };
+                });
             },
             
             addSection() {
@@ -233,5 +239,19 @@
             output.classList.add('border-2', 'border-brand-primary/30');
         }
         reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function removeImage(index) {
+        console.log(index)
+
+        const preview = document.getElementById('preview' + (index + 1));
+        const imgInput = document.getElementById('imgInput' + (index + 1));
+
+        // Reset the image preview
+        preview.src = '';
+        preview.classList.remove('border-2', 'border-brand-primary/30');
+
+        // Clear the file input value
+        imgInput.value = '-';
     }
 </script>
