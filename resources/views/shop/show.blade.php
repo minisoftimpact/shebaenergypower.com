@@ -1,4 +1,9 @@
-<x-master-layout>
+<x-master-layout
+    :title="$product->name ?? ''"
+    :metaDescription="$product->description ?? 'Sheba Energy Power is an energy and power solutions company in Bangladesh.'"
+    :metaKeywords="'Sheba Energy Power, Generators, ' . $product->brand . ', ' . $product->model"
+    :metaImage="'/products/' . $product->id . '/photos/1.jpg'"
+>
     <section>
         <div class="container py-4 md:py-6">
             <div x-data="{ selectedImage: '{{ $product->photos[0] }}', zoomed: false }" class="grid gap-4 md:grid-cols-2">

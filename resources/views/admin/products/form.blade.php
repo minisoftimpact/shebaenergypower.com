@@ -17,6 +17,18 @@
         @enderror
     </div>
 
+    <!-- Active -->
+    <div class="col-span-6">
+        <label for="active" class="block text-sm font-medium text-gray-700">Active</label>
+        <select id="active" name="active" class="mt-1 p-2 w-full border border-gray-300 rounded-md">
+            <option value="1" @selected(old('active') ?? $product->active)>Active</option> 
+            <option value="0" @selected(!(old('active') ?? $product->active))>Inactive</option> 
+        </select>
+        @error('active')
+            <div class="text-red-500 mt-1">{{ $message }}</div>
+        @enderror
+    </div>
+
     <!-- Price -->
     <div class="col-span-6">
         <label for="price" class="block text-sm font-medium text-gray-700">Price (optional)</label>

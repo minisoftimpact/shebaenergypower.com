@@ -22,6 +22,7 @@
                             <th class="text-center">SL</th>
                             <th class="text-left">Brand</th>
                             <th class="text-left">Product Name</th>
+                            <th class="text-center">Active</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -34,8 +35,13 @@
                             <td class="text-left">
                                 {{ $product->brand }}
                             </td>
-                            <td class="text-left">
+                            <td class="text-left  {{ $product->active ? '' : 'text-red-600' }}">
                                 {{ $product->name }}
+                            </td>
+                            <td class="text-center">
+                                <div class="text-center {{ $product->active ? 'text-green-600' : 'text-red-600' }}">
+                                    {{ $product->active ? 'Active' : 'Inactive' }}
+                                </div>
                             </td>
                             <td class="text-center">
                                 {{-- <a href="{{ route('dashboard.products.show', $product->id) }}">Show</a> --}}

@@ -12,12 +12,14 @@ class ShopController extends Controller
         if (!$request->ajax()) {
             // return
             $brands = Product::query()
-            ->distinct()
-            ->pluck('brand')
-            ->toArray();
+                ->active()
+                ->distinct()
+                ->pluck('brand')
+                ->toArray();
 
             // return
             $countries = Product::query()
+                ->active()
                 ->distinct()
                 ->pluck('country')
                 ->toArray();
@@ -25,7 +27,8 @@ class ShopController extends Controller
             return view('shop.index', compact('brands', 'countries'));
         }
 
-        $query = Product::query();
+        $query = Product::query()
+            ->active();
 
         // Apply search filter
         if ($request->has('search')) {
@@ -64,6 +67,10 @@ class ShopController extends Controller
 
     public function show(Product $product)
     {
+        if(!$product->active) {
+            return abort(404);
+        }
+
         return view('shop.show', compact('product'));
     }
 }

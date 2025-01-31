@@ -16,5 +16,11 @@ class Product extends Model
     protected $casts = [
         "photos" => "array",
         "specifications" => "json",
+        "active" => "boolean",
     ];
+
+    public function scopeActive($query, $active = 1)
+    {
+        return $query->where("active", $active);
+    }
 }

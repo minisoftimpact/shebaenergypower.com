@@ -139,6 +139,7 @@ class ProductController extends Controller
                 'required',
                 Rule::unique('products')->ignore($id),
             ],
+            "active" => "",
             "price" => "",
             "brand" => "required|string",
             "model" => "required|string",

@@ -30,6 +30,23 @@ Route::get('/contact-us', [PageController::class, 'contact']);
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/products/{product:slug}', [ShopController::class, 'show'])->name('shop.show');
 
+Route::get('/products/{product}/photos/{serial?}.jpg', function ($id, $serial = 1) {
+    // return
+    $product = \App\Models\Product::findOrFail($id);
+
+    $index = $serial > 0 ? $serial - 1 : 0;
+
+    if (($product->photos[$index] ?? null) && strpos($product->photos[$index], 'data:image') === 0) {
+        $base64String = preg_replace('/^data:image\/\w+;base64,/', '', $product->photos[$index]);
+        $imageData = base64_decode($base64String);
+
+        return response($imageData, 200)
+            ->header('Content-Type', 'image/jpg');
+    }
+
+    return abort(404);
+});
+
 Route::get('/about-sheba-energy-power', [PageController::class, 'about']);
 
 Route::get('/perkins', [CategoryController::class, 'perkins']);
