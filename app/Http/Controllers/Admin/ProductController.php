@@ -145,6 +145,8 @@ class ProductController extends Controller
             "model" => "required|string",
             "country" => "required|string",
             "description" => "",
+            "keywords" => "",
+            "summary" => "",
         ]);
     }
 

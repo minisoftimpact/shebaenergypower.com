@@ -10,9 +10,7 @@ class CategoryController extends Controller
     public function perkins()
     {
         // return
-        $products = Product::query()
-            ->where('brand', 'perkins')
-            ->get();
+        $products = $this->getBrandProducts('perkins');
 
         return view('categories.perkins', compact('products'));
     }
@@ -20,9 +18,7 @@ class CategoryController extends Controller
     public function cummins()
     {
         // return
-        $products = Product::query()
-            ->where('brand', 'cummins')
-            ->get();
+        $products = $this->getBrandProducts('cummins');
 
         return view('categories.cummins', compact('products'));
     }
@@ -30,9 +26,7 @@ class CategoryController extends Controller
     public function hyundai()
     {
         // return
-        $products = Product::query()
-            ->where('brand', 'hyundai')
-            ->get();
+        $products = $this->getBrandProducts('hyundai');
 
         return view('categories.hyundai', compact('products'));
     }
@@ -40,9 +34,7 @@ class CategoryController extends Controller
     public function deutz()
     {
         // return
-        $products = Product::query()
-            ->where('brand', 'deutz')
-            ->get();
+        $products = $this->getBrandProducts('deutz');
 
         return view('categories.deutz', compact('products'));
     }
@@ -50,9 +42,7 @@ class CategoryController extends Controller
     public function ricardo()
     {
         // return
-        $products = Product::query()
-            ->where('brand', 'ricardo')
-            ->get();
+        $products = $this->getBrandProducts('ricardo');
 
         return view('categories.ricardo', compact('products'));
     }
@@ -60,10 +50,16 @@ class CategoryController extends Controller
     public function gasoline()
     {
         // return
-        $products = Product::query()
-            ->where('brand', 'gasoline')
-            ->get();
+        $products = $this->getBrandProducts('gasoline');
 
         return view('categories.gasoline', compact('products'));
+    }
+
+    private function getBrandProducts($brand)
+    {
+        return Product::query()
+            ->active()
+            ->where('brand', $brand)
+            ->get();
     }
 }

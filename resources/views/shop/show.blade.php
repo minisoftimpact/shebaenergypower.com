@@ -1,7 +1,7 @@
 <x-master-layout
     :title="$product->name ?? ''"
-    :metaDescription="$product->description ?? 'Sheba Energy Power is an energy and power solutions company in Bangladesh.'"
-    :metaKeywords="'Sheba Energy Power, Generators, ' . $product->brand . ', ' . $product->model"
+    :metaDescription="$product->summary ?? 'Sheba Energy Power is an energy and power solutions company in Bangladesh.'"
+    :metaKeywords="$product->keywords ?? 'Sheba Energy Power, Generators, ' . $product->brand . ', ' . $product->model"
     :metaImage="'/products/' . $product->id . '/photos/1.jpg'"
 >
     <section>
@@ -60,7 +60,7 @@
                     </h1>
                     <p>Brand: <b>{{ $product->brand }}</b></p>
                     <p class="font-bold text-brand-secondary">
-                        {{ $product->price ?? 'Call for Pricing' }}
+                        {{ $product->price ?? 'Call For Price' }}
                     </p>
                     <div class="flex items-center justify-start gap-4">
                         <a 

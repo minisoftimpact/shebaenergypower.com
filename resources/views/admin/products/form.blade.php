@@ -1,7 +1,7 @@
 <div class="grid gap-4 lg:grid-cols-12">
     <!-- Name -->
     <div class="col-span-full">
-        <label for="name" class="block text-sm font-medium text-gray-700">Product Name</label>
+        <label for="name" class="block text-sm font-medium text-gray-700">Product Name (*)</label>
         <input value="{{ old('name') ?? $product->name }}" type="text" id="name" name="name" class="mt-1 p-2 w-full border border-gray-300 rounded-md" required>
         @error('name')
             <div class="text-red-500 mt-1">{{ $message }}</div>
@@ -10,7 +10,7 @@
 
     <!-- Slug -->
     <div class="col-span-full">
-        <label for="slug" class="block text-sm font-medium text-gray-700">Slug</label>
+        <label for="slug" class="block text-sm font-medium text-gray-700">Slug (*)</label>
         <input value="{{ old('slug') ?? $product->slug }}" type="text" id="slug" name="slug" class="mt-1 p-2 w-full border border-gray-300 rounded-md" required>
         @error('slug')
             <div class="text-red-500 mt-1">{{ $message }}</div>
@@ -19,7 +19,7 @@
 
     <!-- Active -->
     <div class="col-span-6">
-        <label for="active" class="block text-sm font-medium text-gray-700">Active</label>
+        <label for="active" class="block text-sm font-medium text-gray-700">Active (*)</label>
         <select id="active" name="active" class="mt-1 p-2 w-full border border-gray-300 rounded-md">
             <option value="1" @selected(old('active') ?? $product->active)>Active</option> 
             <option value="0" @selected(!(old('active') ?? $product->active))>Inactive</option> 
@@ -40,7 +40,7 @@
 
     <!-- Brand -->
     <div class="col-span-6">
-        <label for="brand" class="block text-sm font-medium text-gray-700">Brand</label>
+        <label for="brand" class="block text-sm font-medium text-gray-700">Brand (*)</label>
         <input value="{{ old('brand') ?? $product->brand }}" type="text" list="brand-options" id="brand" name="brand" class="mt-1 p-2 w-full border border-gray-300 rounded-md" required>
         <datalist id="brand-options">
             @foreach($brands as $brand)
@@ -54,7 +54,7 @@
 
     <!-- Model Number -->
     <div class="col-span-6">
-        <label for="model" class="block text-sm font-medium text-gray-700">Model Number</label>
+        <label for="model" class="block text-sm font-medium text-gray-700">Model Number (*)</label>
         <input value="{{ old('model') ?? $product->model }}" type="text" id="model" name="model" class="mt-1 p-2 w-full border border-gray-300 rounded-md" required>
         @error('model')
             <div class="text-red-500 mt-1">{{ $message }}</div>
@@ -63,7 +63,7 @@
 
     <!-- Country of Origin -->
     <div class="col-span-6">
-        <label for="country" class="block text-sm font-medium text-gray-700">Country of Origin</label>
+        <label for="country" class="block text-sm font-medium text-gray-700">Country of Origin (*)</label>
         <input value="{{ old('country') ?? $product->country }}" type="text" list="country-options" id="country" name="country" class="mt-1 p-2 w-full border border-gray-300 rounded-md" required>
         <datalist id="country-options">
             @foreach($countries as $country)
@@ -75,12 +75,45 @@
         @enderror
     </div>
 
+    <!-- Keywords -->
+    <div class="col-span-full">
+        <label for="keywords" class="block text-sm font-medium text-gray-700">
+            Keywords <span class="text-gray-400">[Separate by coma (,)]</span>
+        </label>
+        <textarea 
+            id="keywords"
+            name="keywords"
+            class="w-full min-h-28 rounded-lg"
+        >{{ $product->keywords }}</textarea>
+        @error('keywords')
+            <div class="text-red-500 mt-1">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <!-- Summary -->
+    <div class="col-span-full">
+        <label for="summary" class="block text-sm font-medium text-gray-700">
+            Summary <span class="text-gray-400">[SEO/Meta description]</span>
+        </label>
+        <textarea 
+            id="summary"
+            name="summary"
+            class="w-full min-h-36 rounded-lg"
+        >{{ $product->summary }}</textarea>
+        @error('summary')
+            <div class="text-red-500 mt-1">{{ $message }}</div>
+        @enderror
+    </div>
+
     <!-- Description -->
     <div class="col-span-full">
-        <label for="country" class="block text-sm font-medium text-gray-700">Description</label>
+        <label for="description" class="block text-sm font-medium text-gray-700">
+            Description <span class="text-gray-400">[Product Description / Details]</span>
+        </label>
         <textarea 
+            id="description"
             name="description"
-            class="w-full min-h-40 rounded-lg"
+            class="w-full min-h-60 rounded-lg"
         >{{ $product->description }}</textarea>
         @error('description')
             <div class="text-red-500 mt-1">{{ $message }}</div>
